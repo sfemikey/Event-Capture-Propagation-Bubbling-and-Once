@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+  <h1> Javascript Event Capture, Propagation and Bubbling</h1>
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+    text-align: center;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(https://digitaladdictsblog.com/wp-content/uploads/2019/01/shutterstock_295846730.jpg);
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  h1 {
+    font-size: 36px;
+    padding: 20px 0 20px;
+    color: white;
+  }
+  .one {
+    background: #f63cf6;
+    margin-bottom: 20px;
+  }
+
+  .two {
+    background: #a8e0fa;
+  }
+
+  .three {
+    background: #1778c5;
+  }
+
+  button {
+    background-color: red;
+    color: white;
+    min-width: 13vh;
+    height: 4vh;
+    border-radius: 1em;
+    text-transform: uppercase;
+  }
+</style>
+
+<button>Click Here</button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) {
+    console.log(this.classList.value);
+    // e.stopPropagation(); // stop bubbling!
+    // console.log(this);
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false,
+    once: true
+  }));
+
+  button.addEventListener('click', () => {
+    console.log('Click!!!');
+  }, {
+    once: true
+  });
+
+</script>
+</body>
+</html>
